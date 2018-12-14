@@ -21,7 +21,7 @@ List<Item> itemReducer(List<Item> state, action) {
   }
 
   if(action is RemoveAllItemsAction) {
-    return [];
+    return List.unmodifiable([]);
   }
 
   return state;

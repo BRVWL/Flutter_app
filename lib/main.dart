@@ -4,6 +4,10 @@
 
 // You can read about packages here: https://flutter.io/using-packages/
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:my_app/model/model.dart';
+import 'package:my_app/redux/actions.dart';
+import 'package:my_app/redux/reducer.dart';
 
 // You can use a relative import, i.e. `import 'category.dart;'` or
 // a package import, as shown below.
@@ -19,11 +23,21 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Redux',
-      theme: ThemeData.dark(),
-      home: MyHomePage(),
+    // Add 'appStateReducer' reduser from store to root widget
+    final Store<AppState> store = Store<AppState>(
+      appStateReducer(),
+      initialState: AppState.initialState(),
+    );
+
+    // Pass provider with store to widget
+    return StoreProvider<AppState>(
+      store: store,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Redux',
+        theme: ThemeData.dark(),
+        home: MyHomePage(),
+      ),
     );
   }
 }
