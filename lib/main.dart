@@ -11,9 +11,11 @@ class myCustomComponent extends StatelessWidget {
       color: Colors.yellow,
       width: 800,
       height: 400,
-      child: Text(
+      child: Center(
+        child: Text(
         'Yeeeaaaah',
         style: TextStyle(fontSize: 26, fontFamily: 'Arial'),
+      )
       ),
     );   
   }
