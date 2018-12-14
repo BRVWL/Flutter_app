@@ -4,6 +4,10 @@
 
 import 'package:flutter/material.dart';
 
+Widget myCustomComponent() {
+  return Container(color: Colors.yellow);
+}
+
 void main() {
   runApp(
     MaterialApp(
