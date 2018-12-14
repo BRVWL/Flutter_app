@@ -27,9 +27,26 @@ class CategoryRoute extends StatelessWidget {
     'Digital Storage',
     'Energy',
     'Currency',
+    'Length',
+    'Area',
+    'Volume',
+    'Mass',
+    'Time',
+    'Digital Storage',
+    'Energy',
+    'Currency',
+    
   ];
 
   static const _baseColors = <Color>[
+    Colors.teal,
+    Colors.orange,
+    Colors.pinkAccent,
+    Colors.blueAccent,
+    Colors.yellow,
+    Colors.greenAccent,
+    Colors.purpleAccent,
+    Colors.red,
     Colors.teal,
     Colors.orange,
     Colors.pinkAccent,
