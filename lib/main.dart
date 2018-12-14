@@ -5,6 +5,7 @@
 // You can read about packages here: https://flutter.io/using-packages/
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:redux/redux.dart';
 import 'package:my_app/model/model.dart';
 import 'package:my_app/redux/actions.dart';
 import 'package:my_app/redux/reducer.dart';
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // Add 'appStateReducer' reduser from store to root widget
     final Store<AppState> store = Store<AppState>(
-      appStateReducer(),
+      appStateReducer,
       initialState: AppState.initialState(),
     );
 
