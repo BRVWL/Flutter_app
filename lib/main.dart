@@ -4,8 +4,14 @@
 
 import 'package:flutter/material.dart';
 
-Widget myCustomComponent() {
-  return Container(color: Colors.yellow);
+class myCustomComponent extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.yellow,
+      child: Text('Yeeeaaaah'),
+    );   
+  }
 }
 
 void main() {
@@ -17,7 +23,7 @@ void main() {
         appBar: AppBar(
           title: Text('Hello Rectangle man'),
         ),
-        body: HelloRectangle(),
+        body: myCustomComponent(),
       ),
     ),
   );
