@@ -47,18 +47,79 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Scaffold(
-        appBar: AppBar(
-          title: Text('Redux Items'),
-        ),
-        body: StoreConnector<AppState, _ViewModel>(
-          Container(
-          padding: EdgeInsets.all(20),
-          child: Text('Redux init app'),
-        ),
-        )
-      ),
+          appBar: AppBar(
+            title: Text('Redux Items'),
+          ),
+          body: StoreConnector<AppState, _ViewModel>(
+            converter: (Store<AppState> store) => _ViewModel.create(store),
+            builder: (BuildContext context, _ViewModel viewModel) => Column(
+                  children: <Widget>[
+                    AddItemWidget(viewModel),
+                    Expanded(child: ItemListWidget(viewModel)),
+                    RemoveItemsButton(viewModel),
+                  ],
+                ),
+          )),
     );
   }
+}
+
+class ItemListWidget extends StatelessWidget {
+  final _ViewModel model;
+  ItemListWidget(this.model);
+  
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      children: model.items.map((Item item) => ListTile(
+        title: Text(item.body),
+        leading: IconButton(
+          icon: Icon(Icons.delete),
+          onPressed: () => model.onRemoveItem(item),
+        ),
+      )).toList(),
+    );
+  }
+}
+
+class AddItemWidget extends StatefulWidget {
+  final _ViewModel model;
+  AddItemWidget(this.model);
+
+  @override
+  _AddItemState createState() => _AddItemState();
+}
+
+class _AddItemState extends State<AddItemWidget> {
+  final TextEditingController controller = TextEditingController();
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      controller: controller,
+      decoration: InputDecoration(
+        hintText: 'Add an Item',
+      ),
+      onSubmitted: (String s) {
+        widget.model.onAddItem(s);
+        controller.text = '';
+      },
+    );
+  }
+}
+
+class RemoveItemsButton extends StatelessWidget {
+  final _ViewModel model;
+
+  RemoveItemsButton(this.model);
+
+  @override
+  Widget build(BuildContext context) {
+    return RaisedButton(
+      child: Text('Delete all items'),
+      onPressed: () => model.onRemoveAllItems(),
+    );
+  }
+
 }
 
 class _ViewModel {
@@ -66,7 +127,7 @@ class _ViewModel {
   final List<Item> items;
   final Function(String) onAddItem;
   final Function(Item) onRemoveItem;
-  final Function() onRemoveAllItems; 
+  final Function() onRemoveAllItems;
 
   // constructor
   _ViewModel({
@@ -81,6 +142,7 @@ class _ViewModel {
     _onAddItem(String body) {
       store.dispatch(AddItemAction(body));
     }
+
     _onRemoveItem(Item item) {
       store.dispatch(RemoveItemAction(item));
     }
@@ -96,5 +158,4 @@ class _ViewModel {
       onRemoveAllItems: _onRemoveAllItems,
     );
   }
-
 }
