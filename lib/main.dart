@@ -9,7 +9,12 @@ class myCustomComponent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.yellow,
-      child: Text('Yeeeaaaah'),
+      width: 800,
+      height: 400,
+      child: Text(
+        'Yeeeaaaah',
+        style: TextStyle(fontSize: 26, fontFamily: 'Arial'),
+      ),
     );   
   }
 }
