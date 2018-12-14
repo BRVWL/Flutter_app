@@ -50,11 +50,51 @@ class MyHomePage extends StatelessWidget {
         appBar: AppBar(
           title: Text('Redux Items'),
         ),
-        body: Container(
+        body: StoreConnector<AppState, _ViewModel>(
+          Container(
           padding: EdgeInsets.all(20),
           child: Text('Redux init app'),
         ),
+        )
       ),
     );
   }
+}
+
+class _ViewModel {
+  // Created action events for view
+  final List<Item> items;
+  final Function(String) onAddItem;
+  final Function(Item) onRemoveItem;
+  final Function() onRemoveAllItems; 
+
+  // constructor
+  _ViewModel({
+    this.items,
+    this.onAddItem,
+    this.onRemoveItem,
+    this.onRemoveAllItems,
+  });
+
+  // Map funcs to ViewMode
+  factory _ViewModel.create(Store<AppState> store) {
+    _onAddItem(String body) {
+      store.dispatch(AddItemAction(body));
+    }
+    _onRemoveItem(Item item) {
+      store.dispatch(RemoveItemAction(item));
+    }
+
+    _onRemoveAllItems() {
+      store.dispatch(RemoveAllItemsAction());
+    }
+
+    return _ViewModel(
+      items: store.state.items,
+      onAddItem: _onAddItem,
+      onRemoveItem: _onRemoveItem,
+      onRemoveAllItems: _onRemoveAllItems,
+    );
+  }
+
 }
