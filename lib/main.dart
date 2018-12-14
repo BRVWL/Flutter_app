@@ -1,4 +1,3 @@
-
 // Copyright 2018 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -10,22 +9,38 @@ import 'package:flutter/material.dart';
 // a package import, as shown below.
 // More details at http://dart-lang.github.io/linter/lints/avoid_relative_lib_imports.html
 
-import 'category_route.dart';
-
 /// The function that is called when main.dart is run.
 void main() {
-  runApp(UnitConverterApp());
+  runApp(MyApp());
 }
 
 /// This widget is the root of our application.
 /// Currently, we just show one widget in our app.
-class UnitConverterApp extends StatelessWidget {
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Unit Converter',
-      home: CategoryRoute(),
+      title: 'Flutter Redux',
+      theme: ThemeData.dark(),
+      home: MyHomePage(),
+    );
+  }
+}
+
+class MyHomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Redux Items'),
+        ),
+        body: Container(
+          padding: EdgeInsets.all(20),
+          child: Text('Redux init app'),
+        ),
+      ),
     );
   }
 }
